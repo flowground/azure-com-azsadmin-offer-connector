@@ -1,0 +1,101 @@
+{
+    "title": "SubscriptionClient",
+    "description": "The User Subscription Management Client.",
+    "docsUrl": "",
+    "url": "https://api.apis.guru/v2/specs/azure.com/azsadmin-Offer/2015-11-01/swagger.json",
+    "envVars": {
+        "OAUTH_CLIENT_ID": {
+            "description": "OAuth Client ID"
+        },
+        "OAUTH_CLIENT_SECRET": {
+            "description": "OAuth Client Secret"
+        }
+    },
+    "credentials": {
+        "fields": {
+            "server": {
+                "label": "Server",
+                "viewClass": "SelectView",
+                "model": [
+                    "https://management.local.azurestack.external/",
+                    "--- Custom URL"
+                ],
+                "required": true
+            },
+            "otherServer": {
+                "label": "Custom Server URL",
+                "viewClass": "TextFieldView"
+            },
+            "azure_auth": {
+                "label": "Azure Active Directory OAuth2 flow",
+                "viewClass": "OAuthFieldView"
+            }
+        },
+        "oauth2": {
+            "client_id": "{{OAUTH_CLIENT_ID}}",
+            "client_secret": "{{OAUTH_CLIENT_SECRET}}",
+            "auth_uri": "https://login.microsoftonline.com/common/oauth2/authorize"
+        }
+    },
+    "triggers": {
+        "startFlow": {
+            "main": "./lib/triggers/startFlow.js",
+            "type": "polling",
+            "title": "Start Flow",
+            "fields": {}
+        }
+    },
+    "actions": {
+        "DelegatedProviderOffers_List": {
+            "main": "./lib/actions/DelegatedProviderOffers_List.js",
+            "title": "Get the list of offers for the specified delegated provider.",
+            "description": "Get the list of offers for the specified delegated provider.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/DelegatedProviderOffers_List.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "DelegatedProviderOffers_Get": {
+            "main": "./lib/actions/DelegatedProviderOffers_Get.js",
+            "title": "Get the specified offer for the delegated provider.",
+            "description": "Get the specified offer for the delegated provider.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/DelegatedProviderOffers_Get.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "Offers_List": {
+            "main": "./lib/actions/Offers_List.js",
+            "title": "Get the list of public offers for the root provider.",
+            "description": "Get the list of public offers for the root provider.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/Offers_List.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        }
+    }
+}
